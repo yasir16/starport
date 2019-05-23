@@ -1,0 +1,13 @@
+{% if coursesets %}
+    <h1>Courses Available</h1>
+    <hr>
+    <ul>
+        {% for courseset in coursesets %}
+        <li>
+            <a href="/courses/{{ courseset.id }}">{{ courseset.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No courses available at the moment!</p>
+{% endif %}

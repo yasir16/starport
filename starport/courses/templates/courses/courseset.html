@@ -1,0 +1,8 @@
+<h2>{{ courseset.title }}</h2>
+<small> {{ courseset.repo_url }} | {{ courseset.owner }} </small>
+
+<ul>
+    {% for course in courseset.course_set.all %}
+        <li><a href="">{{ course. }}</a></li>
+    {% endfor %}
+</ul>
