@@ -34,10 +34,26 @@ def c_detail(request, cs_id, c_id):
     return HttpResponse(f'The detail page for Course {c_id}')
 
 def add_to_queue(request):
-    try:
-        aq = ApprovalQueue(repo_url=request.POST['repo_url'])
-        aq.save()
-    except:
-        raise HttpResponse("Fail: This repo has already been submitted in the past.")
+    form = AddtoQueueForm(request.POST)
+    if form.is_valid():
+        existing_q = ApprovalQueue.objects.filter(repo_url=request.POST['repo_url'])
+        if existing_q:
+            return HttpResponse("Fail: This repo has already been submitted in the past.")
+        else:
+            ApprovalQueue(repo_url=request.POST['repo_url']).save()
+            return HttpResponseRedirect(reverse('courses:index'))
     else:
-        return HttpResponseRedirect(reverse('courses:index'))
+        return HttpResponse(f"{request.POST['repo_url']} is not in the specified username/repo format")
+
+# def add_to_queue(request):
+#     try:
+        
+#         aq = ApprovalQueue.objects.filter(repo_url=request.POST['repo_url'])
+#         if aq:
+#             raise HttpResponse("Fail: This repo has already been submitted in the past.")
+#         else:
+#             aq = ApprovalQueue(repo_url=request.POST['repo_url'])
+#             aq.save()
+#             return HttpResponseRedirect(reverse('courses:index'))
+#     except:
+#         raise HttpResponse("An error occured")

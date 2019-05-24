@@ -3,7 +3,7 @@
     <p><strong>{{ error_message }}</strong></p>
 {% endif %}
 <hr>
-<form action="{% url 'courses:add_to_queue' %}" method="post">
+<form action="{% url 'courses:add_to_queue' %}" method="POST">
     {% csrf_token %}
     <h3>Submit a repo to the approval queue</h3>
     <!-- <input type="text" name="add_repo" id="add_repo" value="{{ repo_url }}"> -->

@@ -11,5 +11,3 @@ def validate_repo_url(value):
 
 class AddtoQueueForm(forms.Form):
     repo_url = forms.CharField(label="GitHub URL", max_length=100, validators=[validate_repo_url])
-
-
