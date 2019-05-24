@@ -3,6 +3,8 @@
 
 <ul>
     {% for course in courseset.course_set.all %}
-        <li><a href="">{{ course. }}</a></li>
+        <li>
+            <a href="{% url 'courses:c_detail' course.id %}">{{ course.title }}</a>
+        </li>
     {% endfor %}
 </ul>

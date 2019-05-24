@@ -1,13 +1,26 @@
+<h1>Courses on Starport</h1>
+{% if error_message %}
+    <p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<hr>
+<form action="{% url 'courses:add_to_queue' %}" method="post">
+    {% csrf_token %}
+    <h3>Submit a repo to the approval queue</h3>
+    <!-- <input type="text" name="add_repo" id="add_repo" value="{{ repo_url }}"> -->
+    {{ add_form }}
+    <input type="submit" value="Submit">
+</form>
+<hr>
+
 {% if coursesets %}
-    <h1>Courses Available</h1>
-    <hr>
-    <ul>
-        {% for courseset in coursesets %}
-        <li>
-            <a href="/courses/{{ courseset.id }}">{{ courseset.title }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+<ul>
+    {% for courseset in coursesets %}
+    <li>
+        <a href="{% url 'courses:cs_detail' courseset.id %}">
+            {{ courseset.title }}
+        </a>
+    {% endfor %}
+</ul>
 {% else %}
     <p>No courses available at the moment!</p>
 {% endif %}
