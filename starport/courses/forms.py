@@ -1,22 +1,15 @@
-import re
 from django import forms
-from django.core.exceptions import ValidationError
-from django.utils.translation import gettext_lazy as _
-from django.core.validators import RegexValidator
-
-# from django.core.validators import URLValidator
-
-
-def validate_repo_url(value):
-    reg = re.compile("^([a-zA-Z\d]{1}[-a-zA-Z\d]+)(/){1}([\-\w]+)$")
-    message = _(f"{value} not a valid username/repo format.")
-    if not reg.match(value):
-        raise ValidationError(message, code="invalid_format")
-        # raise ValidationError(f"{value} is not a valid url to a github repo")
+from .fields import repo_url_field
 
 
 class AddtoQueueForm(forms.Form):
-    repo_url = forms.CharField(
-        label="GitHub URL", max_length=100, validators=[validate_repo_url]
-    )
+    repo_url = repo_url_field(label="GitHub URL", max_length=30)
+
+    def clean(self):
+        cleaned_data = super(AddtoQueueForm, self).clean()
+        cleaned_url = cleaned_data.get("repo_url").lower()
+        if cleaned_url:
+            if cleaned_url[: cleaned_url.find("/")] == "onlyphantom":
+                msg = "onlyphantom adds his own repo."
+                self.add_error("repo_url", msg)
 

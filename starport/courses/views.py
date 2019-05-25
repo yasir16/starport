@@ -32,17 +32,17 @@ def c_detail(request, cs_id, c_id):
 
 def add_to_queue(request):
     form = AddtoQueueForm(request.POST)
+    repourl = request.POST["repo_url"].lower()
     if form.is_valid():
-        existing_q = ApprovalQueue.objects.filter(repo_url=request.POST["repo_url"])
+        existing_q = ApprovalQueue.objects.filter(repo_url=repourl)
         if existing_q:
             return HttpResponse(
                 "Fail: This repo has already been submitted in the past."
             )
         else:
-            ApprovalQueue(repo_url=request.POST["repo_url"]).save()
+            ApprovalQueue(repo_url=repourl).save()
             return HttpResponseRedirect(reverse("courses:index"))
     else:
-        print(form.errors)
         template = loader.get_template("courses/index.html")
         coursesets = CourseSet.objects.order_by("-updated_on")[:5]
         add_form = AddtoQueueForm()
