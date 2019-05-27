@@ -6,7 +6,6 @@ from django.db import IntegrityError
 from .models import CourseSet, ApprovalQueue
 from .forms import AddtoQueueForm
 
-# Create your views here.
 def index(request):
     coursesets = CourseSet.objects.order_by("-updated_on")[:5]
     add_form = AddtoQueueForm()

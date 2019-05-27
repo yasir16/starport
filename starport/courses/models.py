@@ -3,7 +3,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-
 class ApprovalQueue(models.Model):
     repo_url = models.SlugField("repo slug", unique=True)
     submitted_on = models.DateTimeField("submitted on", auto_now_add=True)
