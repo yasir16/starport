@@ -32,8 +32,8 @@ def c_detail(request, cs_id, c_id):
 
 def add_to_queue(request):
     form = AddtoQueueForm(request.POST)
-    repourl = request.POST["repo_url"].lower()
     if form.is_valid():
+        repourl = request.POST["repo_url"].lower()
         existing_q = ApprovalQueue.objects.filter(repo_url=repourl)
         if existing_q:
             return HttpResponse(
