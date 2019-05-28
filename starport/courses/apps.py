@@ -5,4 +5,4 @@ class CoursesConfig(AppConfig):
 
     def ready(self):
         # importing model classes
-        from .gh_factory import cs_approved_signal
+        from .signals import cs_approved_signal

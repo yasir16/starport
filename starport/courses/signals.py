@@ -26,13 +26,14 @@ def createCourseSet(repo_url, approved_by):
                 ).save()
 
 
-# TODO: connect when approved to add to CourseSet 
 @receiver(post_save, sender=ApprovalQueue)
 def cs_approved_signal(sender, instance, **kwargs):
-    print("A course set has been approved. Github API running...")
-    createCourseSet('onlyphantom/sqlalchemy-tutorial', 
-    approved_by=instance)
-    print("Added CourseSet to the platform.")
+    print(f"Course Set {instance.repo_url} is added and pending approval.")
+    if instance.approved_status:
+        print(f"Course Set {instance.repo_url} has been approved. Github API running...")
+        createCourseSet(instance.repo_url, 
+        approved_by=instance)
+        print("Added CourseSet to the platform.")
 
 # def cs_approved_signal(sender, instance, **kwargs):
 #     print("A course set has been approved. Github API running...")
