@@ -3,6 +3,11 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from .models import ApprovalQueue, CourseSet
 
+def course_n_counter(repo_url):
+    req = requests.get("https://api.github.com/repos/" + repo_url + "/contents")   
+    json = req.json()
+    course_directory = [j['name'] for j in json if j['type'] == "dir"]
+
 def createCourseSet(repo_url, approved_by):
     req = requests.get("https://api.github.com/repos/" + repo_url)   
     json = req.json()
@@ -13,6 +18,7 @@ def createCourseSet(repo_url, approved_by):
         title = json["name"]
         description = json['description'] 
         star_n = json["stargazers_count"]
+        course_n = course_n_counter(repo_url)
         # TODO: add image and course_n attributes as definition, 
         # course_n should be updated using post_update Signals
         CourseSet(repo_url=repo_url, 
