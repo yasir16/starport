@@ -3,10 +3,17 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from .models import ApprovalQueue, CourseSet
 
+def createCourse(course_directory):
+     pass
+
 def course_n_counter(repo_url):
+    import re
+    import requests
     req = requests.get("https://api.github.com/repos/" + repo_url + "/contents")   
     json = req.json()
-    course_directory = [j['name'] for j in json if j['type'] == "dir"]
+    reg = re.compile("^[\d]+[._-][\w]+$")
+    course_directory = [j['name'] for j in json if j['type'] == "dir" and reg.match(j['name'])]
+    return len(course_directory)
 
 def createCourseSet(repo_url, approved_by):
     req = requests.get("https://api.github.com/repos/" + repo_url)   
@@ -28,7 +35,8 @@ def createCourseSet(repo_url, approved_by):
                 owner=owner,
                 title=title,
                 description=description,
-                star_n=star_n
+                star_n=star_n,
+                course_n=course_n_counter(repo_url)
                 ).save()
 
 
