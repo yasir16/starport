@@ -2,10 +2,12 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from django.db import IntegrityError
+from django.contrib.auth.decorators import login_required
 
 from .models import CourseSet, ApprovalQueue
 from .forms import AddtoQueueForm
 
+@login_required
 def index(request):
     coursesets = CourseSet.objects.order_by("-updated_on")[:5]
     add_form = AddtoQueueForm()
