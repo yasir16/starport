@@ -2,10 +2,12 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from django.db import IntegrityError
+from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 
 from .models import CourseSet, ApprovalQueue
 from .forms import AddtoQueueForm
+
 
 @login_required
 def index(request):
@@ -41,7 +43,7 @@ def add_to_queue(request):
                 "Fail: This repo has already been submitted in the past."
             )
         else:
-            ApprovalQueue(repo_url=repourl).save()
+            ApprovalQueue(repo_url=repourl, submitted_by=request.user).save()
             return HttpResponseRedirect(reverse("courses:index"))
     else:
         template = loader.get_template("courses/index.html")
@@ -53,3 +55,12 @@ def add_to_queue(request):
             "error_message": form.errors,
         }
         return HttpResponse(template.render(context, request))
+
+
+class ReviewList(ListView):
+    model = ApprovalQueue
+    template_name = "courses/approval.html"
+    paginate = 10
+
+    def get_queryset(self):
+        return ApprovalQueue.objects.filter(approved_status=False)

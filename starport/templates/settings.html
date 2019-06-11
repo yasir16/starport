@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>User Settings page</h2>
+
+Your details:
+<ul>
+    <li>Username: {{ user.username }}</li>
+    <li>Name: {{ user.first_name }}</li>
+    {% if user.email %}
+    <li>Email: {{ user.email }}</li>
+    {% else %}
+    We don't have your email on the system. <a href="/accounts/set_email/">Set your email</a> for account recovery and
+    important notifications.
+    {% endif %}
+</ul>
+
+<hr>
+
+<h3>GitHub integration</h3>
+<p>Connected as
+    <a href="https://github.com/{{github_login.extra_data.login}}/" target='_blank'">
+        {{ github_login.extra_data.login }}
+    </a>
+</p>
+
+{% if github_login %}
+{% if can_disconnect %}
+    <form method=" post" action="{% url 'social:disconnect' 'github' %}">
+        {% csrf_token %}
+        <button type="submit">Disconnect from GitHub</button>
+        </form>
+        {% else %}
+        <button type="button" disabled>Disconnect from GitHub</button>
+        <p><span style="color: cadetblue;">You must <a href="/accounts/password_reset/">set a password</a> to disconnect
+                from GitHub.</span></p>
+        {% endif %}
+
+        {% else %}
+        <a href="{% url 'social:begin' 'github' %}">Connect to GitHub</a>
+        {% endif %}
+
+
+
+
+
+        {% endblock %}

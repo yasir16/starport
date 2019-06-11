@@ -74,7 +74,6 @@ TEMPLATES = [
 
 AUTHENTICATION_BACKENDS = (
     "social_core.backends.github.GithubOAuth2",  # for Github authenticationz
-    "social_core.backends.facebook.FacebookOAuth2",  # for Facebook authentication
     "django.contrib.auth.backends.ModelBackend",
 )
 
@@ -82,6 +81,9 @@ LOGIN_URL = "login"
 LOGOUT_URL = "logout"
 LOGIN_REDIRECT_URL = "home"
 
+# SOCIAL_AUTH_LOGIN_ERROR_URL = "/settings/"
+# SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/settings/"
+# SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 SOCIAL_AUTH_GITHUB_KEY = os.environ["SOCIAL_AUTH_GITHUB_KEY"]
 SOCIAL_AUTH_GITHUB_SECRET = os.environ["SOCIAL_AUTH_GITHUB_SECRET"]
 

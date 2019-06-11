@@ -3,11 +3,27 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+
 class ApprovalQueue(models.Model):
     repo_url = models.SlugField("repo slug", unique=True)
     submitted_on = models.DateTimeField("submitted on", auto_now_add=True)
+    submitted_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, related_name="discovered"
+    )
     approved_status = models.BooleanField("approved status", default=False)
     approved_by_user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    class Meta:
+        permissions = [
+            (
+                "approve_course",
+                "Can approve a course submitted to the Queue by setting status as True",
+            ),
+            (
+                "remove_course",
+                "Can remove a course from the Queue by setting status as False",
+            ),
+        ]
 
 
 class CourseSet(models.Model):

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h1>Community Submission</h1>
+<span>Submission pending approval</span>
+<div>
+    {% for submission in object_list %}
+    <div class="row">
+        {{ submission.submitted_on|date:"D d M: H" }} 
+        - {{ submission.repo_url }}
+    </div>
+    
+    
+    {% empty %}
+    <span>No articles yet.</span>
+    {% endfor %}
+</div>
+
+{% endblock content %}
