@@ -32,8 +32,6 @@ def createCourseSet(repo_url, approved_by):
         description = json["description"]
         star_n = json["stargazers_count"]
         course_n = course_n_counter(repo_url)
-        # TODO: add image and course_n attributes as definition,
-        # course_n should be updated using post_update Signals
         CourseSet(
             repo_url=repo_url,
             created_on=created_on,

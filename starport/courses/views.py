@@ -37,6 +37,11 @@ def add_to_queue(request):
     form = AddtoQueueForm(request.POST)
     if form.is_valid():
         repourl = request.POST["repo_url"].lower()
+        existing_c = CourseSet.objects.filter(repo_url=repourl)
+        if existing_c:
+            return HttpResponse(
+                "Fail: This repo is already a course on Positif.io"
+            )
         existing_q = ApprovalQueue.objects.filter(repo_url=repourl)
         if existing_q:
             return HttpResponse(
@@ -56,6 +61,9 @@ def add_to_queue(request):
         }
         return HttpResponse(template.render(context, request))
 
+
+def approve_from_queue(request):
+    pass
 
 class ReviewList(ListView):
     model = ApprovalQueue
