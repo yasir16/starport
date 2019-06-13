@@ -2,6 +2,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from django.db import IntegrityError
+from django.shortcuts import get_object_or_404
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 
@@ -63,7 +64,21 @@ def add_to_queue(request):
 
 
 def approve_from_queue(request):
-    pass
+    if 'approve_btn' in request.POST:
+        repourl = request.POST['approve_btn']
+        print(f"{request.user} approved: {repourl}")
+        approval_item = get_object_or_404(ApprovalQueue, repo_url=repourl)  
+        approval_item.approved_status = True
+        approval_item.save(update_fields=['approved_status'])
+
+    if 'delete_btn' in request.POST:
+        repourl = request.POST['delete_btn']
+        print(f"{request.user} deleted: {repourl}")
+        approval_item = get_object_or_404(ApprovalQueue, repo_url=repourl)
+        approval_item.delete()
+    
+    return HttpResponseRedirect(reverse("courses:approval-review"))
+
 
 class ReviewList(ListView):
     model = ApprovalQueue

@@ -4,18 +4,41 @@
 
 
 <h1>Community Submission</h1>
-<span>Submission pending approval</span>
-<div>
+<h3>Submission pending approval</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Submission</th>
+            <th scope="col">Approval</th>
+        </tr>
+    </thead>
     {% for submission in object_list %}
-    <div class="row">
-        {{ submission.submitted_on|date:"D d M: H" }} 
-        - {{ submission.repo_url }}
-    </div>
-    
-    
+    <tr class="{% cycle 'row1' 'row2' %}">
+        <td>
+            <small>{{ submission.submitted_on|date:"D, d M" }}</small>
+                <h6>
+                    <a href='https://github.com/{{submission.repo_url}}' target="_blank">
+                        {{ submission.repo_url|upper}}
+                    </a>
+                </h6>
+
+                Submitted by: <em>{{ submission.submitted_by }}</em>
+        </td>
+        <td>
+            <form action="{% url 'courses:approved' %}"  method="POST">
+                {% csrf_token %}
+                <button class="btn btn-primary" type="submit" value="{{ submission.repo_url }}" name="approve_btn">
+                    Approve</button> 
+                <button class="btn btn-outline-danger" type="submit" value="{{ submission.repo_url }}" name="delete_btn">
+                    Delete from Queue</button>
+            </form>
+         </td>
+
+    </tr>
+        
     {% empty %}
-    <span>No articles yet.</span>
+    <span>No pending submission.</span>
     {% endfor %}
-</div>
+</table>
 
 {% endblock content %}

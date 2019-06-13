@@ -3,7 +3,7 @@ from .fields import repo_url_field
 
 
 class AddtoQueueForm(forms.Form):
-    repo_url = repo_url_field(label="GitHub URL", max_length=50)
+    repo_url = repo_url_field(label="GitHub URL", max_length=60)
 
     def clean(self):
         cleaned_data = super(AddtoQueueForm, self).clean()

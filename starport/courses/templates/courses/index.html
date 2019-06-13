@@ -9,14 +9,13 @@
         <form action="{% url 'courses:add_to_queue' %}" method="POST">
             {% csrf_token %}
             <h3>Submit a repo to the approval queue</h3>
-            <!-- <input type="text" name="add_repo" id="add_repo" value="{{ repo_url }}"> -->
             {{ add_form }}
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" class="btn btn-primary">
         </form>
     </div>
 
     {% if coursesets %}
-    <h1>Courses on Starport</h1>
+    <h1>Projects on Starport</h1>
 
     <div class="row">
         {% for courseset in coursesets %}
