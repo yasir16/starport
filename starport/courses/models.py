@@ -25,6 +25,11 @@ class ApprovalQueue(models.Model):
             ),
         ]
 
+        ordering = ["-submitted_on", "submitted_by"]
+
+        def __str__(self):
+            return self.repo_url
+
 
 class CourseSet(models.Model):
     repo_url = models.SlugField("repo slug", unique=True)

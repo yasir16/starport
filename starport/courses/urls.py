@@ -11,6 +11,9 @@ urlpatterns = [
     path("<int:cs_id>/<int:c_id>", views.c_detail, name="c_detail"),
     # ex: /courses/add
     path("add", views.add_to_queue, name="add_to_queue"),
+    path("participation", views.participation, name="participation"),
+    # Participate related paths
+    # path("participate", views.),
     # Review List related paths
     path("review", views.ReviewList.as_view(), name="approval-review"),
     path("approved", views.approve_from_queue, name="approved")

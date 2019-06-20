@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+    {% if coursesets %}
+    <h1>My Projects</h1>
+    <p>Participate in a project to have it listed under "My Projects".</p>
+    <hr>
+
+    <div class="row">
+        {% for courseset in coursesets %}
+        <div class="col-4">
+            <span>
+                <a href="{% url 'courses:cs_detail' courseset.id %}">
+                    {{ courseset.title }}
+                </a>
+            </span>
+            <div>
+                {{ courseset.description }}
+            </div>
+            <div>
+                <span>{{ courseset.owner }} | {{ courseset.course_n }}</span>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+    {% else %}
+    <p>You haven't participated in any projects! Shall we recommend some?</p>
+    {% endif %}
+
+</div>
+{% endblock %}

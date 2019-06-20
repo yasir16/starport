@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ["positif.io"]
 
 INSTALLED_APPS = [
     "courses.apps.CoursesConfig",
+    "userprofile.apps.UserprofileConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -86,10 +87,8 @@ LOGIN_REDIRECT_URL = "home"
 # SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 SOCIAL_AUTH_GITHUB_KEY = os.environ["SOCIAL_AUTH_GITHUB_KEY"]
 SOCIAL_AUTH_GITHUB_SECRET = os.environ["SOCIAL_AUTH_GITHUB_SECRET"]
+SOCIAL_AUTH_GITHUB_SCOPE = ["user:email"]
 
-
-# SOCIAL_AUTH_GITHUB_KEY = "337342d66d3afdb44c93"
-# SOCIAL_AUTH_GITHUB_SECRET = "4cacd94b4c9932f02964c84a0448ac65f3d83059"
 
 WSGI_APPLICATION = "starport.wsgi.application"
 

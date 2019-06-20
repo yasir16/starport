@@ -2,36 +2,39 @@
 
 {% block content %}
 
-{% if user.is_authenticated %}
-<p class="display-4">Hello, {{ user.username }}</p>
+<div class="container">
+    {% if user.is_authenticated %}
+    <p class="display-4">Hello, {{ user.username }}</p>
 
-<ul>
-    <li>Last login: {{  user.last_login  }}</li>
-    <li>Joined: {{  user.date_joined  }}</li>
-    <li>Staff: {{  user.is_staff  }}</li>
-    {% if perms.courses.add %}
-    <li>
-        You can <a href="#">
-            submit a course to Starport for community review.
-        </a>
-    </li>
+    <ul>
+        <li>Last login: {{  user.last_login  }}</li>
+        <li>Joined: {{  user.date_joined  }}</li>
+        <li>Staff: {{  user.is_staff  }}</li>
+        {% if perms.courses.add %}
+        <li>
+            You can <a href="#">
+                submit a course to Starport for community review.
+            </a>
+        </li>
+        {% endif %}
+        {% if perms.courses.approve_course %}
+        <li>
+            You can <a href="#">
+                approve courses submitted by the community.
+            </a>
+        </li>
+        {% endif %}
+        <li>{{ user.get_all_permissions }}</li>
+    </ul>
+
+
+    {% else %}
+    <p class="display-4">Hello, visitor</p>
+
+    <p>Access to more than 100+ courses are completely free.
+        Sign up for an account or <a class="lead" href="{% url 'login' %}">Log in</a> to continue.</p>
+
     {% endif %}
-    {% if perms.courses.approve_course %}
-    <li>
-        You can <a href="#">
-            approve courses submitted by the community.
-        </a>
-    </li>
-    {% endif %}
-    <li>{{ user.get_all_permissions }}</li>
-</ul>
+</div>
 
-
-{% else %}
-<p class="display-4">Hello, visitor</p>
-
-<p>Access to more than 100+ courses are completely free. 
-    Sign up for an account or <a class="lead" href="{% url 'login' %}">Log in</a> to continue.</p>
-
-{% endif %}
 {% endblock content %}

@@ -19,6 +19,13 @@ def index(request):
 
     return HttpResponse(template.render(context, request))
 
+@login_required
+def participation(request):
+    user = request.user
+    coursesets = CourseSet.objects.filter(participated_by__user=user)
+    template = loader.get_template("courses/participation.html")
+    context = {"coursesets": coursesets}
+    return HttpResponse(template.render(context, request))
 
 def cs_detail(request, cs_id):
     try:

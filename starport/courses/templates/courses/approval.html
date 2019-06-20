@@ -2,20 +2,20 @@
 
 {% block content %}
 
-
-<h1>Community Submission</h1>
-<h3>Submission pending approval</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Submission</th>
-            <th scope="col">Approval</th>
-        </tr>
-    </thead>
-    {% for submission in object_list %}
-    <tr class="{% cycle 'row1' 'row2' %}">
-        <td>
-            <small>{{ submission.submitted_on|date:"D, d M" }}</small>
+<div class="container">
+    <h1>Community Submission</h1>
+    <h3>Submission pending approval</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Submission</th>
+                <th scope="col">Approval</th>
+            </tr>
+        </thead>
+        {% for submission in object_list %}
+        <tr class="{% cycle 'row1' 'row2' %}">
+            <td>
+                <small>{{ submission.submitted_on|date:"D, d M" }}</small>
                 <h6>
                     <a href='https://github.com/{{submission.repo_url}}' target="_blank">
                         {{ submission.repo_url|upper}}
@@ -23,22 +23,25 @@
                 </h6>
 
                 Submitted by: <em>{{ submission.submitted_by }}</em>
-        </td>
-        <td>
-            <form action="{% url 'courses:approved' %}"  method="POST">
-                {% csrf_token %}
-                <button class="btn btn-primary" type="submit" value="{{ submission.repo_url }}" name="approve_btn">
-                    Approve</button> 
-                <button class="btn btn-outline-danger" type="submit" value="{{ submission.repo_url }}" name="delete_btn">
-                    Delete from Queue</button>
-            </form>
-         </td>
+            </td>
+            <td>
+                <form action="{% url 'courses:approved' %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-primary" type="submit" value="{{ submission.repo_url }}" name="approve_btn">
+                        Approve</button>
+                    <button class="btn btn-outline-danger" type="submit" value="{{ submission.repo_url }}"
+                        name="delete_btn">
+                        Delete from Queue</button>
+                </form>
+            </td>
 
-    </tr>
-        
-    {% empty %}
-    <span>No pending submission.</span>
-    {% endfor %}
-</table>
+        </tr>
+
+        {% empty %}
+        <span>No pending submission.</span>
+        {% endfor %}
+    </table>
+</div>
+
 
 {% endblock content %}

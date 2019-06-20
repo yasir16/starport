@@ -20,22 +20,23 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'courses:participation' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Profile <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'courses:index' %}">Discover</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'courses:index' %}">My Projects</a>
-                </li>
+
                 {% if perms.courses.approve_course %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'courses:approval-review' %}">Review</a>
                 </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Profile</a>
+                    <a class="nav-link disabled" href="#">Settings</a>
                 </li>
 
             </ul>
@@ -45,14 +46,13 @@
             </form>
         </div>
     </nav>
-    <div class="content container">
-        <div class="row">
-            <div class="col-md-8">
-                {% block content %}
-                {% endblock %}
-            </div>
-        </div>
+    <div class="content container-fluid">
+        {% block content %}
+        {% endblock %}
     </div>
+    </div>
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 
 </html>

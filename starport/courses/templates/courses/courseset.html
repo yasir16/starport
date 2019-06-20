@@ -1,10 +1,119 @@
-<h2>{{ courseset.title }}</h2>
-<small> {{ courseset.repo_url }} | {{ courseset.owner }} </small>
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-5" id="sticky-sidebar">
+            <div class="sticky-top flex-grow-1">
+                <div class="nav flex-sm-column">
+                    <h1>{{ courseset.title }}</h1>
+                    <p>{{ courseset.description }}<br>
+                        <small>Last Queried: {{ courseset.updated_on }}</small></p>
+                    <p>Producer: {{ courseset.owner }}</p>
+
+
+                    <div class="mt-2">
+                        <!-- Place this tag where you want the button to render. -->
+                        <a class="github-button" href="https://github.com/{{courseset.repo_url}}" data-size="large"
+                            data-show-count="true" aria-label="Star {{courseset.repo_url}} on GitHub">Star</a>
+                        <!-- Place this tag where you want the button to render. -->
+                        <a class="github-button" href="https://github.com/{{courseset.owner}}" data-size="large"
+                            data-show-count="true" aria-label="Follow @{{courseset.owner}} on GitHub">Follow
+                            @{{courseset.owner}}</a>
+                    </div>
+                    <hr>
+                    <div class="mt-2">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" value="{{ submission.repo_url }}"
+                            name="participate_btn">
+                            Participate</button>
+                        {% if user.username == courseset.owner %}
+                        <button class="btn btn-dark btn-lg btn-block" type="submit" value="{{ submission.repo_url }}"
+                            name="add_quiz_btn">Add Quiz</button>
+                        {% else %}
+                        <p>You can participate in this project.</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-7" id="main">
+            <div class="jumbotron">
+                <h1>Quiz for {{ courseset.title }}</h1>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu nisi dolor. Donec a ultrices massa.
+                    Sed sit amet varius neque. Aenean in libero pretium, sollicitudin purus eget, feugiat nunc. Integer
+                    tortor dolor, maximus eget commodo tempus, congue eu est. Praesent molestie odio sapien, id mollis
+                    nisi efficitur eget. <br>Maecenas sapien sapien, laoreet non imperdiet eu, malesuada quis sapien.
+                    Aenean
+                    luctus tristique lacus ut tempus. Donec vestibulum odio dignissim, vestibulum tellus vel, suscipit
+                    magna. Donec sed sem ex. <br>Sed rhoncus eu nisl at sodales. Aenean ac mattis ligula, eu tincidunt
+                    lectus. Donec auctor accumsan nibh, et congue augue sagittis tempus. Nunc suscipit viverra elit.
+
+                    Maecenas fermentum rhoncus pretium. Sed porta, massa eget iaculis tristique, lectus nibh bibendum
+                    ligula, euismod luctus nunc urna eget nisl. Nulla tincidunt, massa vitae condimentum elementum,
+                    augue arcu volutpat eros, eget tristique tellus erat sed lorem. Nulla auctor est mattis magna semper
+                    ultricies. <br>Nunc ipsum sapien, aliquam in tristique sit amet, facilisis commodo ante. Nulla at
+                    felis
+                    lacus. Phasellus maximus lectus nunc, sed volutpat ligula euismod vel. Maecenas facilisis bibendum
+                    condimentum. Ut id venenatis dui. In eu tellus at nunc volutpat commodo quis sit amet nulla. Ut orci
+                    velit, pharetra vitae enim a, porta sagittis metus. Fusce id pretium mauris. Nullam interdum, nunc
+                    sed dictum interdum, lectus justo fermentum augue, id faucibus augue neque et arcu. Nam aliquam id
+                    urna eu scelerisque.
+
+                    Nullam id nunc molestie, posuere tellus vitae, fermentum nunc. Phasellus imperdiet, dolor non cursus
+                    elementum, purus velit pellentesque leo, eu viverra enim ante vitae nisi. Nunc vel ante libero.
+                    Pellentesque sapien leo, posuere et porttitor quis, viverra eu risus. Cras ut dignissim dolor, eu
+                    cursus orci. <br>Mauris eu augue fermentum, bibendum nibh a, varius justo. Etiam blandit nibh orci,
+                    ut
+                    pulvinar ante varius ac. Vivamus auctor est id condimentum imperdiet. Quisque porta rhoncus orci,
+                    nec egestas velit congue vel. Sed eleifend gravida turpis, vel blandit libero pretium in. Interdum
+                    et malesuada fames ac ante ipsum primis in faucibus. Nullam imperdiet aliquet tortor, et imperdiet
+                    risus mollis eget. <br>Proin quis sollicitudin dolor. Aliquam consectetur mauris a nibh iaculis
+                    tincidunt.
+
+                    Etiam quis mauris dignissim, suscipit eros ac, sodales orci. Donec sollicitudin purus ut purus
+                    lobortis, vitae scelerisque metus fringilla. Etiam id tempus turpis, quis sagittis magna. Mauris
+                    nisl libero, convallis ut ultricies id, dictum ac felis. Nullam dapibus in eros eget egestas. Proin
+                    rhoncus et purus eget tincidunt. Integer vulputate quam tortor, mollis ornare mi suscipit ac.
+                    Phasellus auctor consequat elit id elementum. In id posuere enim. Morbi consectetur libero ut nisi
+                    elementum maximus. Sed consectetur, erat id mollis interdum, ipsum neque sagittis ante, sed commodo
+                    urna magna vel erat. Integer condimentum lobortis nulla efficitur cursus. Suspendisse in ante
+                    porttitor, euismod augue eu, maximus sapien. Pellentesque feugiat eros ac euismod tristique. Donec
+                    at lacus semper, sodales ligula non, accumsan mi. Nulla eros ex, vestibulum in fermentum eget,
+                    interdum a nulla.
+
+                    Aliquam molestie viverra eros, lacinia eleifend leo euismod id. Morbi ac imperdiet quam. Vestibulum
+                    lacinia est laoreet rutrum auctor. Donec tristique pellentesque est malesuada placerat. Morbi
+                    pharetra orci id enim varius, ut convallis lectus commodo. Phasellus rutrum sit amet est quis
+                    aliquet. Proin eget ex felis. Donec id efficitur tellus, a dignissim nibh. Maecenas tincidunt nec
+                    sem id vehicula.
+
+                    In dictum iaculis nisl eu gravida. Proin laoreet orci vitae tincidunt laoreet. Aenean porta lacus
+                    sit amet tellus sagittis commodo. Vestibulum in nunc tincidunt lectus varius dapibus. Phasellus
+                    laoreet scelerisque nulla, eu tempus magna aliquam vitae. Morbi et lorem fringilla est blandit
+                    suscipit. Praesent vitae velit tristique, viverra tortor ac, euismod leo. Aenean feugiat arcu a odio
+                    molestie, sit amet convallis tellus pellentesque. Vestibulum id ligula enim. In nec auctor leo, vel
+                    viverra arcu. Suspendisse potenti. Duis ullamcorper gravida sem, vitae iaculis nulla pellentesque
+                    sed.</p>
+
+                <button class="btn btn-primary btn-lg btn-block" type="submit" value="{{ submission.repo_url }}"
+                    name="add_quiz_btn">Submit Quiz</button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
 
 <ul>
     {% for course in courseset.course_set.all %}
-        <li>
-            <a href="{% url 'courses:c_detail' course.id %}">{{ course.title }}</a>
-        </li>
+    <li>
+        <a href="{% url 'courses:c_detail' course.id %}">{{ course.title }}</a>
+    </li>
     {% endfor %}
 </ul>
+{% endblock content %}
