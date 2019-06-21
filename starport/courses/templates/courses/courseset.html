@@ -14,6 +14,7 @@
 
 
                     <div class="mt-2">
+
                         <!-- Place this tag where you want the button to render. -->
                         <a class="github-button" href="https://github.com/{{courseset.repo_url}}" data-size="large"
                             data-show-count="true" aria-label="Star {{courseset.repo_url}} on GitHub">Star</a>
@@ -21,18 +22,32 @@
                         <a class="github-button" href="https://github.com/{{courseset.owner}}" data-size="large"
                             data-show-count="true" aria-label="Follow @{{courseset.owner}} on GitHub">Follow
                             @{{courseset.owner}}</a>
+
+
                     </div>
                     <hr>
                     <div class="mt-2">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit" value="{{ submission.repo_url }}"
-                            name="participate_btn">
-                            Participate</button>
-                        {% if user.username == courseset.owner %}
-                        <button class="btn btn-dark btn-lg btn-block" type="submit" value="{{ submission.repo_url }}"
-                            name="add_quiz_btn">Add Quiz</button>
-                        {% else %}
-                        <p>You can participate in this project.</p>
-                        {% endif %}
+                        <form action="{% url 'courses:participate' courseset.id %}" method="post">
+                            {% csrf_token %}
+                            {% if courseset not in user.userprofile.participate.all %}
+                            <button class="btn btn-primary btn-lg btn-block" type="submit"
+                                value="{{ submission.repo_url }}" name="participate_btn">
+                                Participate</button>
+                            {% else %}
+                            <button class="btn btn-primary btn-lg btn-block" type="submit"
+                                value="{{ submission.repo_url }}" name="unparticipate_btn">
+                                Unparticipate</button>
+                            {% endif %}
+                        </form>
+
+                        <form action="">
+                            {% if user.username == courseset.owner %}
+                            <button class="btn btn-dark btn-lg btn-block" type="submit"
+                                value="{{ submission.repo_url }}" name="add_quiz_btn">Add Quiz</button>
+                            {% else %}
+                            <p>You can participate in this project.</p>
+                            {% endif %}
+                        </form>
                     </div>
                 </div>
 
