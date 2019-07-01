@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 from .models import CourseSet, ApprovalQueue
 from .forms import AddtoQueueForm
+from quizdown.models import QuestionSet, Question, Choice
 
 
 @login_required
@@ -23,11 +24,12 @@ def index(request):
 def cs_detail(request, cs_id):
     try:
         courseset = CourseSet.objects.get(pk=cs_id)
+        questions = Question.objects.filter(questionset__cs=cs_id)
     except CourseSet.DoesNotExist:
         raise Http404("No project with that id.")
         # return render_to_response('custom_404_template.html')
     template = loader.get_template("courses/courseset.html")
-    context = {"courseset": courseset}
+    context = {"courseset": courseset, "questions": questions}
     return HttpResponse(template.render(context, request))
 
 

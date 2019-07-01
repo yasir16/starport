@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
     <div class="row mt-4">
-        <div class="col-5" id="sticky-sidebar">
+        <div class="col-4" id="sticky-sidebar">
             <div class="sticky-top flex-grow-1">
                 <div class="nav flex-sm-column">
                     <h1>{{ courseset.title }}</h1>
@@ -53,9 +53,40 @@
 
             </div>
         </div>
-        <div class="col-7" id="main">
+        <div class="col-8" id="main">
             <div class="jumbotron">
                 <h1>Quiz for {{ courseset.title }}</h1>
+                <ol>
+                    {% for quiz in questions %}
+                    <li class="{% cycle 'row1' 'row2' %} mt-4">
+                        <h6>Quiz {{ forloop.counter }}</h6>
+
+                        <p>{{ quiz.prompt }}</p>
+                        <select name="choice" id="choice_option">
+                            {% for choice in quiz.choice_set.all %}
+                            <option value="{{ choice.content }}">{{ choice.content }}</option>
+                            {% endfor %}
+                        </select>
+                        <!-- Select:
+                        <ul>
+                            {% for choice in quiz.choice_set.all %}
+                            <li>{{ choice.content }}</li>
+                            {% endfor %}
+                        </ul> -->
+
+                        <div class="mb-4 mt-2">
+                            <strong>Question worth <u>{{ quiz.questionscore }} point</u></strong>
+                        </div>
+                        <hr>
+                    </li>
+                    {% empty %}
+                    <li>No quiz associated with this project.</li>
+
+                    {% endfor %}
+
+
+                </ol>
+
 
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu nisi dolor. Donec a ultrices massa.
                     Sed sit amet varius neque. Aenean in libero pretium, sollicitudin purus eget, feugiat nunc. Integer

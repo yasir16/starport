@@ -2,4 +2,6 @@
     "python.envFile": ".env",
     "python.venvPath": "~/.virtualenvs/",
     "python.pythonPath": "/Users/samuel/.virtualenvs/autograde/bin/python",
+    "editor.formatOnSave": true,
+    "python.formatting.provider": "black",
 }

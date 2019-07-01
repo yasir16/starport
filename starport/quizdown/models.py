@@ -5,7 +5,7 @@ from userprofile.models import UserProfile
 
 
 class QuestionSet(models.Model):
-    cs_id = models.OneToOneField(CourseSet, on_delete=models.CASCADE)
+    cs = models.OneToOneField(CourseSet, on_delete=models.CASCADE)
     passingscore = models.PositiveSmallIntegerField("passing score", default=1)
     maxscore = models.PositiveSmallIntegerField("max score", default=1)
     maxattempt = models.PositiveSmallIntegerField("max attempt", default=1)
