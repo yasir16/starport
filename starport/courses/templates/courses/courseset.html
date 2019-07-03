@@ -150,6 +150,12 @@
 
                 <button class="btn btn-primary btn-lg btn-block" type="submit" value="{{ submission.repo_url }}"
                     name="add_quiz_btn">Submit Quiz</button>
+                {% if user.username == courseset.owner %}
+                <button class="btn btn-dark btn-lg btn-block" type="submit" value="{{ submission.repo_url }}"
+                    name="add_quiz_btn">Set Answers</button>
+                {% else %}
+                <p>You can participate in this project.</p>
+                {% endif %}
             </div>
 
         </div>
