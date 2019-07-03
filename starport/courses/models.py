@@ -46,6 +46,7 @@ class CourseSet(models.Model):
     image = models.URLField("repo image", null=True)
     course_n = models.PositiveSmallIntegerField(default=0)
     star_n = models.PositiveIntegerField(default=0)
+    quizcontent = models.TextField()
     # TODO: reference to User model for owner?
 
     def __str__(self):

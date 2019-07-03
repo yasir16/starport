@@ -10,7 +10,6 @@ def createCourse(course_directory):
 
 def course_n_counter(repo_url):
     import re
-    import requests
 
     req = requests.get("https://api.github.com/repos/" + repo_url + "/contents")
     json = req.json()
@@ -22,8 +21,15 @@ def course_n_counter(repo_url):
 
 
 def createCourseSet(repo_url, approved_by):
+    import mistune
+
     req = requests.get("https://api.github.com/repos/" + repo_url)
     json = req.json()
+    quizurl = requests.get(
+        f"https://raw.githubusercontent.com/{repo_url}/master/quiz.md"
+    )
+    quizcontent = quizurl.content.decode("utf-8")
+
     if "id" in json:
         created_on = json["created_at"]
         updated_on = json["updated_at"]
@@ -42,7 +48,15 @@ def createCourseSet(repo_url, approved_by):
             description=description,
             star_n=star_n,
             course_n=course_n_counter(repo_url),
+            quizcontent=mistune.markdown(quizcontent),
         ).save()
+
+
+def createQuiz(repo_url):
+    """
+    Create quiz from CourseSet.objects model
+    """
+    pass
 
 
 @receiver(post_save, sender=ApprovalQueue)
