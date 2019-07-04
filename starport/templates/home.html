@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container mt-4">
     {% if user.is_authenticated %}
-    <p class="display-4">Hello, {{ user.username }}</p>
+    <h1>Hello, {{ user.username }}</h1>
 
     <ul>
         <li>Last login: {{  user.last_login  }}</li>

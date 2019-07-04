@@ -1,0 +1,14 @@
+blockquote {
+    background: rgba(0, 50, 84, 0.8);
+    /* background: rgba(0, 72, 84, 0.3); */
+    padding: 2%;
+    color: white;
+    border-radius: 5px;
+}
+
+code {
+    font-size: 87.5%;
+    color: #ff6c27;
+    word-break: break-word;
+}
+
