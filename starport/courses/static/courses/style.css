@@ -12,3 +12,27 @@ code {
     word-break: break-word;
 }
 
+.btn-github {
+    color: #fff;
+    background-color: #444;
+    border-color: rgba(0,0,0,0.2);
+    position: relative;
+    padding-left: 44px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: smaller;
+    }
+
+.btn-github>:first-child {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    line-height: 34px;
+    font-size: 1.4em;
+    text-align: center;
+    border-right: 1px solid rgba(0,0,0,0.2);
+    }
