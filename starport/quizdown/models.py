@@ -38,7 +38,6 @@ class Question(models.Model):
     questionset = models.ForeignKey(QuestionSet, on_delete=models.CASCADE)
     prompt = models.TextField("question prompt", max_length=1000, blank=False)
     questionscore = models.PositiveSmallIntegerField("question score", default=1)
-    questionorder = models.PositiveSmallIntegerField("question order")
 
 
 class Choice(models.Model):
