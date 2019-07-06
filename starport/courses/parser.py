@@ -2,7 +2,7 @@ import requests
 import base64
 import re
 from bs4 import BeautifulSoup
-from quizdown.models import QuestionSet, Question
+from quizdown.models import QuestionSet, Question, Choice
 
 checkbox = re.compile("(?<=<li>[\[]\s[\]])(\s?)(.+)(?=</li>)")
 
@@ -12,7 +12,6 @@ htmlcontent = "<ol>\n<li><p>Use the <code>engine.table_names()</code> to print t
 def ExtractChoices(htmlcontent, cs_id):
     soup = BeautifulSoup(htmlcontent, "html.parser")
     questions = []
-    lis = []
     maxscore = 0
     num_of_questions = 0
     qs = QuestionSet(cs_id=cs_id)
@@ -20,6 +19,7 @@ def ExtractChoices(htmlcontent, cs_id):
     for ol in soup.findAll("ol"):
         for quest in ol.findAll("li", recursive=False):
             num_of_questions += 1
+            choices = []
             prompt = quest.find("p")
             print(f"question: {prompt}")
             print("----")
@@ -30,11 +30,20 @@ def ExtractChoices(htmlcontent, cs_id):
             )
             if p_matched:
                 score = p_matched.group(2)
+                del x[-1]
             else:
                 score = 1
             maxscore += int(score)
+            for choice in x:
+                choices.append(
+                    re.search("(?<=<li>[\[]\s[\]])(\s?)(.+)(?=</li>)", choice).group(2)
+                )
+            print(choices)
             q = Question(prompt=prompt, questionscore=score, questionset=qs)
             q.save()
+            Choice.objects.bulk_create(
+                [Choice(content=i, question=q) for choice in choices]
+            )
     passingscore = max(1, int(maxscore * 0.8))
     print(f"Num of questions: {num_of_questions}")
     qs.maxscore = maxscore
@@ -61,3 +70,8 @@ def readmeReader(repo_url):
 
 
 # readmeReader("bagasbgy/tidymodels-examples")
+
+
+for choice in x:
+    choices.append(re.search("(?<=<li>[\[]\s[\]])(\s?)(.+)(?=</li>)", choice).group(2))
+    print(choices)
