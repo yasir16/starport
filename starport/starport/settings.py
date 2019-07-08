@@ -25,7 +25,7 @@ SECRET_KEY = "e#bv1f43c&iy@qd*!z6!pt@^bmk@&g9a-vsq&bb&nko4yje2en"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["positif.io"]
+ALLOWED_HOSTS = ["positif.io","localhost"]
 
 
 # Application definition
@@ -87,8 +87,10 @@ LOGOUT_REDIRECT_URL = "home"
 # SOCIAL_AUTH_LOGIN_ERROR_URL = "/settings/"
 # SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/settings/"
 # SOCIAL_AUTH_RAISE_EXCEPTIONS = False
-SOCIAL_AUTH_GITHUB_KEY = os.environ["SOCIAL_AUTH_GITHUB_KEY"]
-SOCIAL_AUTH_GITHUB_SECRET = os.environ["SOCIAL_AUTH_GITHUB_SECRET"]
+# SOCIAL_AUTH_GITHUB_KEY = os.environ["SOCIAL_AUTH_GITHUB_KEY"]0
+# SOCIAL_AUTH_GITHUB_SECRET = os.environ["SOCIAL_AUTH_GITHUB_SECRET"]
+SOCIAL_AUTH_GITHUB_KEY = 'ff2b7b72a6002a871bfc'
+SOCIAL_AUTH_GITHUB_SECRET = '6efef456809c343382c6df66b4666276d373ba3d'
 SOCIAL_AUTH_GITHUB_SCOPE = ["user:email"]
 
 
@@ -137,3 +139,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = "/static/"
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'yasir@algorit.ma'
+EMAIL_HOST_PASSWORD = '3ers-_-M3n'
+EMAIL_PORT = 587

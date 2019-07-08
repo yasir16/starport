@@ -2,6 +2,7 @@ import requests
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from .models import ApprovalQueue, CourseSet
+from .parser import ExtractChoices #import error idk why
 
 
 def createCourse(course_directory):
@@ -56,6 +57,8 @@ def createQuiz(repo_url):
     """
     Create quiz from CourseSet.objects model
     """
+    CourseSet.quizcontent()
+    ExtractChoices()
     pass
 
 
