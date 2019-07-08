@@ -14,6 +14,7 @@ def user_settings(request):
     user = request.user
     try:
         github_login = user.social_auth.get(provider="github")
+        email_login = user.social_auth.get(provider="email") #tried to add email in login
     except UserSocialAuth:
         github_login = None
 
