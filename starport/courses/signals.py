@@ -59,7 +59,7 @@ def createQuiz(repo_url):
     """
     CourseSet.quizcontent()
     ExtractChoices()
-    pass
+    # pass
 
 
 @receiver(post_save, sender=ApprovalQueue)
