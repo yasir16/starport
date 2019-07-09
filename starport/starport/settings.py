@@ -144,5 +144,5 @@ STATIC_URL = "/static/"
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'yasir@algorit.ma'
-EMAIL_HOST_PASSWORD = '3ers-_-M3n'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
